@@ -1,12 +1,13 @@
 // Elements
 const welcomeScreen = document.getElementById(`welcome-screen`);
-const gameScreen = ;
-const startGameButton = ;
-const userName = ;
-const userSelection = ;
-const goButton = ;
-const scoreParagraph = ;
-const gameHistoryParagraph = ;
+const gameScreen = document.getElementById(`game-screen`);
+const startGameButton = document.getElementById(`start-game-button`);
+const userName = document.getElementById(`username`);
+const userSelection = document.getElementById(`user-selection`);
+const goButton = document.getElementById(`go-button`);
+const scoreParagraph = document.getElementById(`score`);
+const gameHistoryParagraph = document.getElementById(`game-history`);
+const resetGameButton = document.getElementById(`reset-game-button`)
 
 // instantiate the game object from the `RockPaperScissors` class.
 let game;
@@ -16,27 +17,32 @@ gameScreen.classList.add(`d-none`);
 
 // updateScoreTallyUI
 function updateScoreTallyUI(){
-
+scoreParagraph.textContent = `${game.username}: ${game.score.user} v CPU: ${game.score.cpu}`
 }
 
 // updateGameHistoryUI
 function updateGameHistoryUI(){
-
+gameHistoryParagraph.textContent = game.gameHistoryLog;
 }
 
 // start-game-button EventListener
 startGameButton.addEventListener(`click`, function () {
-  const username = 
+  const username = userName.value;
   game = new RockPaperScissors(userName);
+  welcomeScreen.classList.add(`d-none`);
+  gameScreen.classList.remove(`d-none`);
   // Complete
 });
 
 // go-button EventListener
-goButton.addEventListener(`click`, function () {
-  
+goButton.addEventListener(`click`, function (e) {
+  e.preventDefault()
+  game.play(userSelection.value);
+  updateScoreTallyUI()
+  updateGameHistoryUI()
 });
 
-// If you're doing the extra-credit, uncomment the below: reset-game-button
-// resetGameButton.addEventListener(`click`, function(e) { 
-  
-// });
+resetGameButton.addEventListener(`click`, funciton(e) {
+  resetGame()
+    e.preventDefault()
+});
